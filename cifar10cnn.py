@@ -17,9 +17,12 @@ x_img_train_normalize = x_img_train / 255.0
 x_img_test_normalize = x_img_test / 255.0
 y_label_train = tf.one_hot(y_label_train, 10, 1, 0)
 y_label_test = tf.one_hot(y_label_test, 10, 1, 0)
+<<<<<<< HEAD
 with tf.Session() as sess:
   y_label_train = sess.run(y_label_train)
   y_label_test = sess.run(y_label_test)
+=======
+>>>>>>> 25772cc565d4b28bf1fb4920ae2651ad8594a1ec
 #x_img_train_normalize = x_img_train_normalize.reshape(-1, 10000)
 #x_img_test_normalize = x_img_test_normalize.reshape(-1, 10000)
 #建立共享函数
@@ -111,6 +114,7 @@ with tf.Session() as sess:
             batch_x = next_batch(x_img_train_normalize, batchSize, i)
             batch_y = next_batch(y_label_train, batchSize, i)
             #batch_x = sess.run(batch_x)
+<<<<<<< HEAD
             batch_y = np.squeeze(batch_y)
             #batch_y = sess.run(batch_y)
             y_label_test = np.squeeze(y_label_test)
@@ -118,6 +122,14 @@ with tf.Session() as sess:
             sess.run(optimizer, feed_dict = {x : batch_x, y_label : batch_y})
             if (epoch % 100 == 0):
                 print('epoch' + str(epoch + 1)  + ' batch' + str(i) + ' has finished!')
+=======
+            batch_y = tf.squeeze(batch_y)
+            batch_y = sess.run(batch_y)
+            y_label_test = tf.squeeze(y_label_test)
+            y_label_test = sess.run(y_label_test)
+            sess.run(optimizer, feed_dict = {x : batch_x, y_label : batch_y})
+            print('epoch' + str(epoch + 1)  + ' batch' + str(i) + ' has finished!')
+>>>>>>> 25772cc565d4b28bf1fb4920ae2651ad8594a1ec
         loss, acc = sess.run([loss_function, accuracy], feed_dict = {x : x_img_test_normalize,
                              y_label : y_label_test})
         epoch_list.append(epoch)
